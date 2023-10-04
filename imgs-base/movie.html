@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+      }
+
+      svg.ecoli {
+        transform: translateZ(0);
+        width: 100px;
+        height: 100px;
+        position:fixed;
+        top: 40px;
+        left: 60px;
+      }
+
+      #movie {
+        width: 500px;
+        height: 300px;
+        background-color: red;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="movie">
+<svg class="ecoli" height="50mm" width="90mm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 50">
+  <g paint-order="markers fill stroke">
+    <path d="M21.424.29L62.573 0c11.953-.083 21.644 9.35 21.73 21.152.084 11.802-9.47 21.37-21.424 21.454l-41.149.29C9.777 42.978.085 33.545 0 21.742-.083 9.942 9.47.373 21.425.29z" fill="#f7b7b7"/>
+    <path d="M22.295 3.985l39.287-.275c9.916-.07 17.957 7.756 18.027 17.548.07 9.791-7.856 17.73-17.773 17.799l-39.287.276c-9.917.07-17.957-7.757-18.027-17.549-.07-9.79 7.856-17.73 17.773-17.799z" fill="#f88888"/>
+  </g>
+</svg>
+<svg class="ecoli" height="50mm" width="90mm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 50">
+  <g paint-order="markers fill stroke">
+    <path d="M21.424.29L62.573 0c11.953-.083 21.644 9.35 21.73 21.152.084 11.802-9.47 21.37-21.424 21.454l-41.149.29C9.777 42.978.085 33.545 0 21.742-.083 9.942 9.47.373 21.425.29z" fill="#f7b7b7"/>
+    <path d="M22.295 3.985l39.287-.275c9.916-.07 17.957 7.756 18.027 17.548.07 9.791-7.856 17.73-17.773 17.799l-39.287.276c-9.917.07-17.957-7.757-18.027-17.549-.07-9.79 7.856-17.73 17.773-17.799z" fill="#f88888"/>
+  </g>
+</svg>
+    </div>
+  </body>
+  <script>
+    let huhu;
+
+    $(document).ready(function(){
+      $('.ecoli').each(function () {
+          //console.log(this);
+          huhu = $(this);
+          animateDiv($(this), 2);
+      });
+    });
+
+    function makeNewPosition(){
+        // 100 offset to not cross boundaries with Ecoli
+        //var top_max = $(this).parent().height() - 100;   // $(window).height() - 100;
+        //var left_max = $(this).parent().width() - 100;  // $(window).width() - 100;
+        var top_max = $('#movie').height() - 100;
+        var left_max = $('#movie').width() - 100;
+        var top = Math.floor(Math.random() * top_max);
+        var left = Math.floor(Math.random() * left_max);
+        return [top,left];    
+    }
+
+    async function animateDiv(mysvg, maxsplit){
+        var newq = makeNewPosition();
+        var oldq = mysvg.offset();
+        var speed = calcSpeed([oldq.top, oldq.left], newq);
+        
+        await new Promise(r => setTimeout(r, 2000));
+
+        mysvg.animate({ top: newq[0], left: newq[1] }, speed, function(){
+          if ( (Math.random() >= 0.1) && (maxsplit >= 1) ) {
+            var new_svg = mysvg.clone();
+            new_svg.appendTo("#movie");
+
+            animateDiv(mysvg, maxsplit-1);
+            animateDiv(new_svg, maxsplit-1);
+          } else {
+            animateDiv(mysvg, maxsplit);
+          }
+        });
+    };
+
+    function calcSpeed(prev, next) {
+        var x = Math.abs(prev[1] - next[1]);
+        var y = Math.abs(prev[0] - next[0]);
+        var greatest = x > y ? x : y;
+        var speedModifier = 0.01;
+        var speed = Math.ceil(greatest/speedModifier);
+        return speed;
+    }
+
+  </script>
+</html>

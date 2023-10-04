@@ -1,0 +1,96 @@
+body {
+	color: #202020;
+}
+
+h1 {
+	font-weight: 500;
+}
+
+h2 {
+	color: #40ad56;
+	font-weight: 400;
+	margin-top: 50px;
+}
+
+a {
+	--color: #73a4f5;
+	text-decoration: none;
+}
+
+
+.funding {
+	height: 60px;
+}
+
+div.member {
+	margin-top: 2rem;
+}
+
+img.team-member {
+	width: 150px;
+	border-radius: 50%;
+}
+
+h2.alt {
+	color: #202020;
+	margin-top: 10px;
+}
+
+#file {
+	padding-top: 20px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#main-img {
+	padding-top: 30px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 30px;
+}
+
+#main-container {
+	max-width: 1200px;
+	margin-top: 30px;
+	margin-bottom: 100px;
+}
+
+.wide li {
+	margin-top: 10px;
+}
+
+.bibtexnumber {
+	padding-right: 5px;
+}
+
+.announce {
+	width: 100%;
+}
+
+.members-container {
+	display: grid;
+	gap: 5px;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+
+@media (max-width: 870px) {
+	h2 {
+		margin-top: 30px;
+	}
+	ul {
+		padding-left: 20px;
+	}
+	.wide li {
+		margin-top: 5px;
+	}
+	.container {
+		grid-template-columns: repeat(1, 1fr);
+	}
+}
+
+
+.sponsors div {
+	margin: 40px;
+	display: inline-block;
+}
